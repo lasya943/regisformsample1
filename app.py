@@ -1,0 +1,14 @@
+
+from flask import Flask,render_template,request
+app = Flask(__name__)
+@app.route('/')
+def index():
+    return render_template('form.html')
+@app.route('/submit',methods =['POST'])
+def submit():
+    username = request.form['username']
+    dob = request.form['date']
+    gender = request.form.get('gender')
+    return render_template('greeting.html',name = username,dob = dob,gender = gender)
+if(__name__ == "__main__"):
+    app.run(debug = True)
