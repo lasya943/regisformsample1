@@ -6,9 +6,9 @@ def index():
     return render_template('form.html')
 @app.route('/submit',methods =['POST'])
 def submit():
-    username = request.form['username']
+    uname = request.form['username']
     dob = request.form['date']
     gender = request.form.get('gender')
-    return render_template('greeting.html',name = username,dob = dob,gender = gender)
+    return render_template('greeting.html',name = uname,dob = dob,gender = gender)
 if(__name__ == "__main__"):
     app.run(debug = True)
