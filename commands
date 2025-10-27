@@ -2,3 +2,37 @@ docker run dockerimg1
 
 docker run -p 8000:8000 dockerimg1
 docker build -t dockerimg .  
+
+PS C:\Users\drsni> kubectl delete deployment appli1
+deployment.apps "appli1" deleted from default namespace
+PS C:\Users\drsni> kubectl delete service appli1
+service "appli1" deleted from default namespace
+PS C:\Users\drsni> kubectl run appli1 --image=myfirstpythonflaskapp:latest --image-pull-policy=Never --port=5000
+pod/appli1 created
+PS C:\Users\drsni> kubectl expose pod appli1 --type=NodePort --port=5000
+service/appli1 exposed
+PS C:\Users\drsni> kubectl get pods
+NAME     READY   STATUS    RESTARTS   AGE
+appli1   1/1     Running   0          19s
+PS C:\Users\drsni> kubectl get services                                                                  
+NAME         TYPE        CLUSTER-IP   EXTERNAL-IP   PORT(S)          AGE
+appli1       NodePort    10.99.4.50   <none>        5000:30352/TCP   21s
+kubernetes   ClusterIP   10.96.0.1    <none>        443/TCP          20m
+PS C:\Users\drsni> ^C
+
+
+PS C:\Users\drsni> kubectl run applic2 --image=mypythonflaskapp:latest --image-pull-policy=Never --port=5000
+pod/applic2 created
+PS C:\Users\drsni> kubectl expose pod applic2 --type=NodePort --port=5000
+service/applic2 exposed
+PS C:\Users\drsni> kubectl get pods              
+NAME      READY   STATUS    RESTARTS   AGE
+appli1    1/1     Running   0          19m
+appli2    1/1     Running   0          14m
+applic2   1/1     Running   0          19s
+PS C:\Users\drsni> kubectl get services
+NAME         TYPE        CLUSTER-IP       EXTERNAL-IP   PORT(S)          AGE
+appli1       NodePort    10.99.4.50       <none>        5000:30352/TCP   19m
+applic2      NodePort    10.104.150.246   <none>        5000:32101/TCP   12s
+kubernetes   ClusterIP   10.96.0.1        <none>        443/TCP          40m
+PS C:\Users\drsni>
